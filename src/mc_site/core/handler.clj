@@ -4,7 +4,7 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
 
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" [] (clojure.java.io/resource "public/index.html"))
   (route/not-found "Not Found"))
 
 (def app

@@ -3,20 +3,20 @@
         hiccup.core))
 
 (def stats '("attack" "defense" "speed" "special"))
-(def evs (cons "hp" *stats*))
+(def evs-list (cons "hp" stats))
 
 (defn- get-evs
   [evs]
   [:table {:border 1}
    [:tr [:th "ev"] [:th "value"]]
-   (for [ev *evs*]
+   (for [ev evs-list]
      [:tr [:td ev] [:td ((keyword ev) evs)]])])
 
 (defn- get-stats
   [stats]
   [:table {:border 1}
    [:tr [:th "stat"] [:th "value"]]
-   (for [stat *stats*]
+   (for [stat stats]
      [:tr [:td stat] [:td ((keyword stat) stats)]])])
 
 (defn- get-moves

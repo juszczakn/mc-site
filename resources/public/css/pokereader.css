@@ -1,0 +1,16 @@
+.pokemon {
+}
+
+.sprite {
+    position: relative;
+    height: 250px;
+    width: 250px;
+    vertical-align: bottom;
+    display: inline;
+    margin-right: 40%;
+    float: right;
+}
+
+th {
+    width: 125px;
+}

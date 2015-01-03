@@ -8,6 +8,7 @@
   (GET "/" [] (clojure.java.io/resource "public/wwwroot/index.html"))
   (GET "/projects" [] (clojure.java.io/resource "public/wwwroot/projects.html"))
   (GET "/pokereader" [] (clojure.java.io/resource "public/wwwroot/pokereader.html"))
+  (GET "/pokereader/save/:id" {params :params} (get-save (:id params)))
   (POST "/pokereader/save/file" {params :params} (file-upload (:savefile params)))
   (route/not-found "Not Found"))
 

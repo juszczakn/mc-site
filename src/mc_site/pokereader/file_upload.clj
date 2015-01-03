@@ -1,32 +1,9 @@
 (ns mc-site.pokereader.file-upload
   (:use pokereader.reader)
-  (:use hiccup.core)
-  (:require [clj-http.client :as http]))
+  (:require [mc-site.pokereader.http :as http]))
 
-(def pokeapi-base "http://pokeapi.co")
-(def pokeapi (str pokeapi-base "/api/v1/"))
-
-(def pokeapi-sprite (str pokeapi "sprite/"))
-
-(defn- poke-entry
-  [pokemon]
-  (let [{index :index, name :pokemon, level :level} pokemon]
-    ;(http/get (str pokeapi-sprite (inc index)))
-    [:div {:class "pokemon"}
-     [:h2 (str name " Lvl " level)]
-     [:ul {:style "align:left;"}
-      (for [m (:moves pokemon)]
-        (when-let [move (second m)]
-          [:li {:style "align:left;"} move]))]]))
-
-(defn- create-layout
-  [data]
-  [:body
-   [:h1 (str "Name: " (:name data))]
-   [:hr]
-   [:h1 {:style "align:left;"} "Team: "]
-   (for [pokemon (:team data)]
-     (poke-entry pokemon))])
+(def uploaded-save-hash (atom 0))
+(def uploaded-saves (atom {}))
 
 (defn file-upload
   [file-map]
@@ -34,8 +11,17 @@
         file (file-map :tempfile)
         filename (file-map :filename)
         data (get-save-data file)]
-    (html
-     [:head
-      [:link {:href "../../css/main.css" :rel "stylesheet" :type "text/css"}]
-      [:title "PokeReader"]]
-     (create-layout data))))
+    (try
+      (let [key (swap! uploaded-save-hash inc)]
+        (swap! uploaded-saves assoc key data)
+        (http/upload-page data key))
+      (catch Exception e (println (str e))))))
+
+(defn get-save
+  [key]
+  (println key)
+  (try
+    (let [key (Integer/parseInt key)
+          data (@uploaded-saves (num key))]
+      (http/upload-page data key))
+    (catch Exception e (println e))))

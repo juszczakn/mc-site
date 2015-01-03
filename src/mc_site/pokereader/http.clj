@@ -3,7 +3,7 @@
         hiccup.core))
 
 (def stats-list '("attack" "defense" "speed" "special"))
-(def evs-list (cons "hp" stats))
+(def evs-list (cons "hp" stats-list))
 
 (defn- get-evs
   [evs]
@@ -41,8 +41,8 @@
       [:h4 (str "Type2/" (second (:type-2 pokemon)))]
       [:h4 (str "Max HP: " (:max-hp pokemon))]
       [:img {:src (get-sprite index) :class "sprite"}]]
-     ;;(get-stats (:stats pokemon))
-      (get-moves (:moves pokemon))
+     (get-stats (:stats pokemon))
+     (get-moves (:moves pokemon))
      (get-evs (:evs pokemon))]))
 
 (defn- create-layout

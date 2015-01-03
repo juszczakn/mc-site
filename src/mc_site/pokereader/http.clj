@@ -2,8 +2,8 @@
   (:use mc-site.pokereader.pokeapi
         hiccup.core))
 
-(def *stats* '("attack" "defense" "speed" "special"))
-(def *evs* (cons "hp" *stats*))
+(def stats '("attack" "defense" "speed" "special"))
+(def evs (cons "hp" *stats*))
 
 (defn- get-evs
   [evs]

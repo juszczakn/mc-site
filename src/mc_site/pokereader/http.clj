@@ -2,7 +2,7 @@
   (:use mc-site.pokereader.pokeapi
         hiccup.core))
 
-(def stats '("attack" "defense" "speed" "special"))
+(def stats-list '("attack" "defense" "speed" "special"))
 (def evs-list (cons "hp" stats))
 
 (defn- get-evs
@@ -16,7 +16,7 @@
   [stats]
   [:table {:border 1}
    [:tr [:th "stat"] [:th "value"]]
-   (for [stat stats]
+   (for [stat stats-list]
      [:tr [:td stat] [:td ((keyword stat) stats)]])])
 
 (defn- get-moves
@@ -41,8 +41,8 @@
       [:h4 (str "Type2/" (second (:type-2 pokemon)))]
       [:h4 (str "Max HP: " (:max-hp pokemon))]
       [:img {:src (get-sprite index) :class "sprite"}]]
-     (get-stats (:stats pokemon))
-     (get-moves (:moves pokemon))
+     ;;(get-stats (:stats pokemon))
+      (get-moves (:moves pokemon))
      (get-evs (:evs pokemon))]))
 
 (defn- create-layout

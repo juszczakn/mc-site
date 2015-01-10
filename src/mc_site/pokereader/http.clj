@@ -48,7 +48,7 @@
 (defn- create-layout
   [data key]
   [:body
-   [:h1 (str "Link to share: /save/" key)]
+   [:h1 "Link to share: " [:a {:href (str "/pokereader/save/" key)} (str "/save/" key)]]
    [:h1 (str "Name: " (:name data))]
    [:h1 {:style "align:left;"} "Team: "]
    (for [pokemon (:team data)]
